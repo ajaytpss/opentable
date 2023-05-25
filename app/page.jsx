@@ -3,7 +3,9 @@ import Card from "./components/Card";
 import axios from "axios";
 
 export async function Restaurnats() {
-  const res = await axios.get(`${process.env.SITE_URL}/api/restaurants`);
+  const siteUrl = "https://opentable-flax.vercel.app";
+  // const siteUrl = "http://localhost:3000/";
+  const res = await axios.get(`${siteUrl}/api/restaurants`);
   if (res.status === 200) {
     return res.data;
   } else {

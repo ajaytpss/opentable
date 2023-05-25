@@ -12,9 +12,9 @@ export const metadata = {
 };
 
 export async function resData(url) {
-  const res = await axios.get(
-    `${process.env.SITE_URL}/api/restaurant?url=${url}`
-  );
+  const siteUrl = "https://opentable-flax.vercel.app";
+  // const siteUrl = "http://localhost:3000/";
+  const res = await axios.get(`${siteUrl}/api/restaurant?url=${url}`);
   if (res.status === 200) {
     return res.data.data;
   }
