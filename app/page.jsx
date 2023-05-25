@@ -1,15 +1,16 @@
 import Header from "./components/Header";
 import Card from "./components/Card";
 import axios from "axios";
+import { baseUrl } from "@/lib/config";
 
 export async function Restaurnats() {
-  const siteUrl = "https://opentable-flax.vercel.app";
-  // const siteUrl = "http://localhost:3000/";
-  const res = await axios.get(`${siteUrl}/api/restaurants`);
+  const siteUrl = "http://localhost:3000/";
+  const res = await axios.get(`${baseUrl}/api/restaurants`);
   if (res.status === 200) {
     return res.data;
-  } else {
-    return "Something went wrong!!";
+  }
+  if (!res) {
+    throw new Error("Something went wrong!!");
   }
 }
 

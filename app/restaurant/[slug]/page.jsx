@@ -5,6 +5,7 @@ import Description from "./components/Description";
 import Images from "./components/Images";
 import ReservationCard from "./components/ReservationCard";
 import axios from "axios";
+import { baseUrl } from "@/lib/config";
 
 export const metadata = {
   title: "Restaurant",
@@ -12,11 +13,11 @@ export const metadata = {
 };
 
 export async function resData(url) {
-  const siteUrl = "https://opentable-flax.vercel.app";
-  // const siteUrl = "http://localhost:3000/";
-  const res = await axios.get(`${siteUrl}/api/restaurant?url=${url}`);
-  if (res.status === 200) {
+  const res = await axios.get(`${baseUrl}/api/restaurant?url=${url}`);
+  if (res.data.status === 200) {
     return res.data.data;
+  } else {
+    throw Error(res.data.message);
   }
 }
 
@@ -25,11 +26,11 @@ export default async function RestaurantDetails(params) {
   return (
     <>
       <div className="bg-white w-[70%] rounded p-3 shadow">
-        <RestaurantNav />
+        <RestaurantNav slug={params.params.slug} />
         <Title title={data.name} />
         <Rating />
-        <Description />
-        <Images />
+        <Description description={data.description} />
+        <Images images={data.images} />
       </div>
       <div className="w-[27%] relative text-reg">
         <ReservationCard />

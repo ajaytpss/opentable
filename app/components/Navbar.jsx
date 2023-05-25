@@ -8,8 +8,11 @@ const Navbar = () => {
         OpenTable{" "}
       </Link>
       <div>
-        <div className="flex">
-          <button className="bg-blue-400 text-white border p-1 px-4 rounded mr-3">
+        <div className="flex items-center gap-3">
+          <Link className="border p-1 px-4 rounded" href="/business">
+            List your restaurant
+          </Link>
+          <button className="bg-blue-400 text-white border p-1 px-4 rounded">
             Sign in
           </button>
           <button className="border p-1 px-4 rounded">Sign up</button>
