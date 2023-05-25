@@ -1,7 +1,6 @@
 import Link from "next/link";
-import React from "react";
 
-const Card = (props: any) => {
+const Card = (props) => {
   const data = props.resData;
   return (
     <div className="w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer">

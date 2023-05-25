@@ -1,5 +1,3 @@
-import React from "react";
-
 const MenuCard = () => {
   return (
     <div className=" border rounded p-3 w-[49%] mb-3">

@@ -1,5 +1,3 @@
-import React from "react";
-
 const Card = () => {
   return (
     <div className="border-b flex pb-5">

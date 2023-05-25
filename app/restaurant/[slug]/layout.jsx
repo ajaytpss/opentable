@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 
-function RestaurantLayout({ children }: { children: React.ReactNode }) {
+function RestaurantLayout({ children }) {
   return (
     <>
       <Header />
