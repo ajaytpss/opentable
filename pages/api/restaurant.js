@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnection } from "@/lib/mongodb";
 
 export default async function handler(req, res) {

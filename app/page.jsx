@@ -4,7 +4,6 @@ import axios from "axios";
 import { baseUrl } from "@/lib/config";
 
 export async function Restaurnats() {
-  const siteUrl = "http://localhost:3000/";
   const res = await axios.get(`${baseUrl}/api/restaurants`);
   if (res.status === 200) {
     return res.data;
