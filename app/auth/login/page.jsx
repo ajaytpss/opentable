@@ -17,6 +17,7 @@ export const DEFAULT_DATA = [
 const Login = () => {
   const router = useRouter();
   const [loginData, setLoginData] = useState(DEFAULT_DATA);
+  const [loading, setLoading] = useState(false);
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -24,6 +25,7 @@ const Login = () => {
   };
 
   const loginCall = async (data) => {
+    setLoading(true);
     setLoginData(DEFAULT_DATA);
     try {
       const res = await axios.post(`${baseUrl}/api/auth/login`, data);
@@ -34,6 +36,7 @@ const Login = () => {
     } catch (error) {
       toast.error(error.response.data.message);
     }
+    setLoading(false);
   };
 
   const loginHandler = (e) => {
@@ -77,7 +80,7 @@ const Login = () => {
         </div>
         <div className="mb-3 gap-3">
           <button className="w-full rounded-md bg-red-600 px-9 py-2 text-white">
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
         </div>
         <p className="text-white text-[12px] text-center">

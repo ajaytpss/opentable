@@ -26,7 +26,9 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           {loggedIn ? (
             <Link
-              onClick={localStorage.removeItem("login")}
+              onClick={() => {
+                localStorage.removeItem("login"), setLoggedIn(false);
+              }}
               href={"/auth/login"}
               className="bg-blue-400 text-white border p-1 px-4 rounded"
             >

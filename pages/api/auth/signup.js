@@ -1,6 +1,7 @@
 import { dbConnection } from "@/lib/mongodb";
 import bcrypt from "bcrypt";
 import validator from "validator";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   const data = req.body;
@@ -48,8 +49,9 @@ export default async function handler(req, res) {
 
     const result = await db.insertOne(data);
 
-    return res
-      .status(200)
-      .json({ status: 200, message: "User signup data saved successfully!" });
+    return res.status(200).json({
+      status: 200,
+      message: "User signup data saved successfully!",
+    });
   }
 }

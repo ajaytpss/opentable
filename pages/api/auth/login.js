@@ -1,5 +1,6 @@
 import { dbConnection } from "@/lib/mongodb";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -18,9 +19,14 @@ export default async function handler(req, res) {
         .status(400)
         .json({ status: 400, message: "Email or Password isn't correct!" });
 
+    const userEmail = req.body.User_Email;
+    const token = jwt.sign({ userEmail }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
     return res.status(200).json({
       status: 200,
       message: `Hello ${findUser.User_Name}, Logged in Successfully`,
+      accessToken: token,
     });
   } else {
     return res.status(200).json("Something went wrong!");
