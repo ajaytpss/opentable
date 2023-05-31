@@ -49,9 +49,15 @@ export default async function handler(req, res) {
 
     const result = await db.insertOne(data);
 
+    const userEmail = data.User_Email;
+    const token = jwt.sign({ userEmail }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
     return res.status(200).json({
       status: 200,
-      message: "User signup data saved successfully!",
+      message: `Hello ${data.User_Name}, Logged in Successfully`,
+      accessToken: token,
     });
   }
 }

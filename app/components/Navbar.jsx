@@ -2,14 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthenticationContext } from "../context/authContext";
+import useAuth from "@/hooks/useAuth";
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState();
+  const { authData, setAuthData } = useContext(AuthenticationContext);
+  const { logOut } = useAuth();
 
   useEffect(() => {
-    setLoggedIn(localStorage.getItem("login"));
+    const isLoggedin = localStorage.getItem("accessToken");
+    if (isLoggedin) return setAuthData(isLoggedin);
   }, []);
+
   return (
     <nav className="bg-white p-2 flex justify-between">
       <Link href="/" className="font-bold text-gray-700 text-2xl w-[160px]">
@@ -24,16 +29,13 @@ const Navbar = () => {
       </Link>
       <div>
         <div className="flex items-center gap-3">
-          {loggedIn ? (
-            <Link
-              onClick={() => {
-                localStorage.removeItem("login"), setLoggedIn(false);
-              }}
-              href={"/auth/login"}
+          {authData ? (
+            <button
+              onClick={() => logOut()}
               className="bg-blue-400 text-white border p-1 px-4 rounded"
             >
               Logout
-            </Link>
+            </button>
           ) : (
             <>
               <Link className="border p-1 px-4 rounded" href="/business">

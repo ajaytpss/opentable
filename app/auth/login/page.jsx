@@ -1,59 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { baseUrl } from "@/lib/config";
-
-export const DEFAULT_DATA = [
-  {
-    User_Email: "",
-    User_Password: "",
-  },
-];
+import { AuthenticationContext } from "@/app/context/authContext";
+import useAuth from "@/hooks/useAuth";
+// Password@123
 
 const Login = () => {
-  const router = useRouter();
-  const [loginData, setLoginData] = useState(DEFAULT_DATA);
-  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
+  const [loginData, setLoginData] = useState({
+    User_Email: "",
+    User_Password: "",
+  });
+  const { authLoading } = useContext(AuthenticationContext);
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
-
-  const loginCall = async (data) => {
-    setLoading(true);
-    setLoginData(DEFAULT_DATA);
-    try {
-      const res = await axios.post(`${baseUrl}/api/auth/login`, data);
-      const result = await res.data;
-      localStorage.setItem("login", true);
-      toast.success(result.message);
-      return router.push("/");
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-    setLoading(false);
-  };
-
   const loginHandler = (e) => {
     e.preventDefault();
-    if (!loginData.User_Email) return toast.error("Please enter your Email");
-    if (!loginData.User_Password)
+    if (!loginData?.User_Email) return toast.error("Please enter your Email");
+    if (!loginData?.User_Password)
       return toast.error("Please enter your Password");
-    loginCall(loginData);
+    setLoginData({
+      User_Email: "",
+      User_Password: "",
+    });
+    signIn({
+      User_Email: loginData.User_Email,
+      User_Password: loginData.User_Password,
+    });
   };
 
   return (
     <>
-      <Toaster
-        toastOptions={{ className: "text-[12px]" }}
-        position="top-center"
-        reverseOrder={false}
-      />
       <form onSubmit={loginHandler}>
         <h2 className="text-2xl font-bold text-center mb-5 text-white">
           Login
@@ -64,7 +46,7 @@ const Login = () => {
             onChange={inputHandler}
             type="email"
             name="User_Email"
-            value={loginData.User_Email}
+            value={loginData?.User_Email}
             className="border-white rounded-md h-[40px] w-full outline-none px-3"
           />
         </div>
@@ -74,13 +56,13 @@ const Login = () => {
             onChange={inputHandler}
             type="password"
             name="User_Password"
-            value={loginData.User_Password}
+            value={loginData?.User_Password}
             className="border-white rounded-md h-[40px] w-full outline-none px-3"
           />
         </div>
         <div className="mb-3 gap-3">
           <button className="w-full rounded-md bg-red-600 px-9 py-2 text-white">
-            {loading ? "Loading..." : "Submit"}
+            {authLoading ? "Loading..." : "Submit"}
           </button>
         </div>
         <p className="text-white text-[12px] text-center">

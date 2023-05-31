@@ -23,7 +23,6 @@ export async function middleware(req) {
   try {
     await jose.jwtVerify(token, jwtSecret);
   } catch (error) {
-    console.log(error);
     return new NextResponse(
       JSON.stringify({ errorMessage: "Unauthorized user!" }),
       { status: 401 }
