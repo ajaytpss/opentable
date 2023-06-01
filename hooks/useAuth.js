@@ -40,7 +40,19 @@ const useAuth = () => {
     toast.success("You have been Logged out!");
   };
 
-  return { signIn, signUp, logOut };
+  const refreshAuth = async (data) => {
+    try {
+      const res = await axios.post(`${baseUrl}/api/auth/refresh`, data);
+      const result = await res.data;
+      setAuthData(result.accessToken);
+      localStorage.setItem("accessToken", result.accessToken);
+    } catch (error) {
+      toast.error(result.message);
+      localStorage.removeItem("accessToken");
+    }
+  };
+
+  return { signIn, signUp, logOut, refreshAuth };
 };
 
 export default useAuth;

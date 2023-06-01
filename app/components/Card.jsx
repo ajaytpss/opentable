@@ -5,7 +5,11 @@ const Card = (props) => {
   return (
     <div className="w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer">
       <Link href={`/restaurant/${data.slug}`}>
-        <img src={data.main_image} alt="" className="w-full h-36" />
+        <img
+          src={data.main_image}
+          alt=""
+          className="w-full h-36 object-cover"
+        />
         <div className="p-3">
           <h3 className="font-bold text-xl mb-2">{data.name}</h3>
           <div className="flex items-start">

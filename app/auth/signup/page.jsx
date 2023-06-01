@@ -3,9 +3,6 @@
 import React, { useContext, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { baseUrl } from "@/lib/config";
-import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import { AuthenticationContext } from "@/app/context/authContext";
 //Password@123
