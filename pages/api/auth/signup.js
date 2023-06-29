@@ -56,7 +56,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       status: 200,
-      message: `Hello ${data.User_Name}, Logged in Successfully`,
+      message: `Hello ${data.User_Name}, Account Created Successfully`,
       accessToken: token,
     });
   }
