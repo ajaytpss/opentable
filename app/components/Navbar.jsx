@@ -2,17 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AuthenticationContext } from "../context/authContext";
 import useAuth from "@/hooks/useAuth";
 
 const Navbar = () => {
-  const { authData, setAuthData } = useContext(AuthenticationContext);
-  const { logOut } = useAuth();
+  const { authData } = useContext(AuthenticationContext);
+  const { logOut, isLoggedIn } = useAuth();
 
   useEffect(() => {
-    const isLoggedin = localStorage.getItem("accessToken");
-    if (isLoggedin) return setAuthData(isLoggedin);
+    isLoggedIn();
   }, []);
 
   return (

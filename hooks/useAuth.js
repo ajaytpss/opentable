@@ -17,13 +17,11 @@ const useAuth = () => {
       setAuthData(result.accessToken);
       toast.success(result.message);
       localStorage.setItem("accessToken", result.accessToken);
-      setTimeout(() => {
-        router.push("/");
-      }, 2000);
+      router.push("/");
     } catch (error) {
       toast.error(error.response.data.message);
     }
-    setAuthLoading(true);
+    setAuthLoading(false);
   };
 
   const signIn = (data) => {
@@ -52,7 +50,17 @@ const useAuth = () => {
     }
   };
 
-  return { signIn, signUp, logOut, refreshAuth };
+  const isLoggedIn = () => {
+    const isLogged = localStorage.getItem("accessToken");
+    if (isLogged) {
+      setAuthData(isLogged);
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  return { signIn, signUp, logOut, refreshAuth, isLoggedIn };
 };
 
 export default useAuth;

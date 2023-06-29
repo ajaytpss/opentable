@@ -1,4 +1,6 @@
-const Card = () => {
+import Link from "next/link";
+
+const Card = (props) => {
   return (
     <div className="border-b flex pb-5">
       <img
@@ -7,7 +9,9 @@ const Card = () => {
         className="w-44 rounded"
       />
       <div className="pl-5">
-        <h2 className="text-3xl">Aiāna Restaurant Collective</h2>
+        <h2 className="text-3xl">
+          <Link href={`/restaurant/${props.data.slug}`}>{props.data.name}</Link>
+        </h2>
         <div className="flex items-start">
           <div className="flex mb-2">*****</div>
           <p className="ml-2 text-sm">Awesome</p>
@@ -20,7 +24,9 @@ const Card = () => {
           </div>
         </div>
         <div className="text-red-600">
-          <a href="">View more information</a>
+          <Link href={`/restaurant/${props.data.slug}`}>
+            View more information
+          </Link>
         </div>
       </div>
     </div>
